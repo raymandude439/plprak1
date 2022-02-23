@@ -49,6 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _text = '';
 
   void _incrementCounter() {
     setState(() {
@@ -59,6 +60,42 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+    // _text = '';
+    // for(int _i=0; _i<=_counter; _i++){
+    //   if(_i%6==0){
+    //     if(_i==0){
+    //       _text = _text + ' $_i';
+    //     }
+    //     else {
+    //       _text = _text + ', $_i';
+    //     }
+    //   }
+    // }
+    if(_counter>=2) {
+      int _angka2;
+      int _angka3;
+      int _tanda = 0;
+      if (_counter % 2 == 0) {
+        _angka2 = _counter ~/ 2;
+      }
+      else {
+        _angka2 = (_counter + 1) ~/ 2;
+      }
+      for (_angka3 = 2; _angka3 <= _angka2; _angka3++) {
+        if (_counter % _angka3 == 0) {
+          _tanda = 1;
+          break;
+        }
+      }
+      if (_tanda == 0) {
+        if(_text == '') {
+          _text = _text + '$_counter';
+        }
+        else{
+          _text = _text + ', $_counter';
+        }
+      }
+    }
   }
 
   @override
@@ -96,10 +133,14 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'Anda sudah menekan tombol sebanyak : ',
             ),
             Text(
               '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            Text(
+              'Prima : $_text',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
