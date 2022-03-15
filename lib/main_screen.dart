@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plprak1/model/warnet_place.dart';
+import 'package:plprak1/detail_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class MainScreen extends StatelessWidget {
           return InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return.DetailScreen();
+                return DetailScreen(place: place);
               }));
             },
             child: listItem(place),
@@ -27,11 +29,11 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  Widget listItem(){
+  Widget listItem(WarnetPlace place){
     return Card(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget> [
+        children: <Widget> [
           Expanded(
             flex: 1,
             child: Image.asset(
@@ -45,14 +47,14 @@ class MainScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     place.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16.0,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
