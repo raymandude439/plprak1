@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plprak1/main_screen.dart';
+import 'package:plprak1/provider/done_warnet_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +13,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Contacts',
-      theme: ThemeData(),
-      home: const MainScreen(),
-      debugShowCheckedModeBanner: false,
+    return ChangeNotifierProvider(
+      create: (context) => DoneWarnetProvider(),
+        child: MaterialApp(
+        title: 'Contacts',
+        theme: ThemeData(),
+        home: MainScreen(),
+        );
     );
+
   }
 }
 
