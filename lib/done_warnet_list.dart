@@ -55,9 +55,10 @@ class DoneWarnetList extends StatelessWidget{
                             ],
                           ),
                         )
-                      )
+                      ),
+                      const Icon(Icons.done_outline),
                     ],
-                  //const Icon(Icons.done_outline),
+
               ),
             );
           },
