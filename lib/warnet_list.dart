@@ -79,14 +79,14 @@ class _WarnetListState extends State<WarnetList>{
               builder: (context, DoneWarnetProvider data,widget){
                 return ListItem(
                     place: place,
-                    isDone: doneWarnetPlaceList.contains(place),
+                    isDone: data.doneWarnetPlaceList.contains(place),
                     onCheckboxClick: (bool? value){
                     setState((){
                       if(value!=null){
                         value
-                        ? doneWarnetPlaceList.add(place)
-                            : doneWarnetPlaceList.remove(place);
-                      };
+                            ? data.doneWarnetPlaceList.add(place)
+                            : data.doneWarnetPlaceList.remove(place);
+                      }
                     });
                 },
                 );
