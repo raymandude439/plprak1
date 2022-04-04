@@ -16,9 +16,10 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => DoneWarnetProvider(),
         child: MaterialApp(
-        title: 'Contacts',
-        theme: ThemeData(),
-        home: MainScreen(),
+          debugShowCheckedModeBanner: false,
+          title: 'Contacts',
+          theme: ThemeData(),
+          home: MainScreen(),
         ),
     );
 

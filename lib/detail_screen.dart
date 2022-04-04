@@ -10,7 +10,11 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Warnet ' + place.name),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,7 +78,7 @@ class DetailScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Image.asset(
+            Image.network(
               place.imageAsset,
               height: 200,
               width: 200,
@@ -112,7 +116,7 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
+                      child: Image.network(
                         place.imageAsset,
                         height: 90,
                       ),
@@ -122,7 +126,7 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
+                      child: Image.network(
                         place.imageAsset,
                         height: 90,
                       ),
@@ -132,7 +136,7 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
+                      child: Image.network(
                         place.imageAsset,
                         height: 90,
                       ),
@@ -142,7 +146,7 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
+                      child: Image.network(
                         place.imageAsset,
                         height: 90,
                       ),
@@ -152,7 +156,7 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
+                      child: Image.network(
                         place.imageAsset,
                         height: 90,
                       ),
@@ -163,7 +167,7 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
+                      child: Image.network(
                         place.imageAsset,
                         height: 90,
                       ),
@@ -173,7 +177,7 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
+                      child: Image.network(
                         place.imageAsset,
                         height: 90,
                       ),
@@ -183,7 +187,7 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
+                      child: Image.network(
                         place.imageAsset,
                         height: 90,
                       ),

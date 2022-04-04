@@ -4,97 +4,84 @@ import 'package:plprak1/model/warnet_place.dart';
 import 'package:plprak1/detail_screen.dart';
 import 'package:plprak1/provider/done_warnet_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:plprak1/api/api_service.dart';
 
 class WarnetList extends StatefulWidget{
-
-  const WarnetList({Key? key}) : super(key: key);
+  final List<WarnetPlace> doneWarnetPlaceList;
+  const WarnetList({
+    Key? key,
+    required this.doneWarnetPlaceList
+  }) : super(key: key);
   @override
-  _WarnetListState createState() => _WarnetListState();
+  _WarnetListState createState() => _WarnetListState(doneWarnetPlaceList);
 }
 
 class _WarnetListState extends State<WarnetList>{
-  final List<WarnetPlace> doneWarnetPlaceList = [];
-  final List<WarnetPlace> warnetPlaceList = [
-    WarnetPlace(
-      name: 'Centro E-Sports Arena',
-      location: 'Jl. Barata Jaya No.9, Baratajaya \nKec. Gubeng, Kota SBY, Jawa Timur 60284' ,
-      imageAsset: 'images/2018-08-12.jpg',
-      tarif: 'Mulai dari Rp. 3.000',
-      hari: 'Setiap Hari',
-      waktu: '24 Jam \n(jam malam mulai 20.00 - 05.00)',
-      deskripsi: 'Warnet terbaik daerah tengah kota \nFasilitas: Full AC, Parkir, Toilet, Kantin Dalam (05.30 - 19.30) \nHarga Biasa - Jam: 40k - 10 jam \n Harga VIP - Jam : 60k - 10 jam',
+  final List<WarnetPlace> doneWarnetPlaceList;
 
-    ),
-    WarnetPlace(
-      name: '3Kingdom Klampis',
-      location: 'Ruko, Jl. Klampis Jaya No.31s, Klampis Ngasem \nKec. Sukolilo, Kota SBY, Jawa Timur 60117',
-      imageAsset: 'images/download(9).jpg',
-      tarif: 'Mulai dari Rp. 3.500',
-      hari: 'Setiap Hari',
-      waktu: '24 Jam',
-      deskripsi: 'Istana Warnet dengan 3 Gedung: Biasa, VIP dan VVIP \nFasilitas: Full AC, Parkir, Toilet, Kantin Dalam (06.00 - 20.00)\nHarga Biasa - Jam: \nHarga VIP - Jam : \nHarga VVIP - Jam: ',
-    ),
-    WarnetPlace(
-      name: 'Army Net',
-      location: 'Jl. Raya Panjang Jiwo Permai No.Kav. J, Panjang Jiwo \nKec. Tenggilis Mejoyo, Kota SBY, Jawa Timur 60299',
-      imageAsset: 'images/download(10).jpg',
-      tarif: 'Mulai dari Rp. 4.000',
-      hari: 'Jumat Tutup',
-      waktu: 'PPKM: 06.00 - 20.00',
-      deskripsi: 'Warnet Para Tentara Pejuang Ranked dan E-Sports \nFasilitas: Full AC, Parkir, Toilet, Kantin Dalam (24 Jam) \nHarga Biasa - Jam: \nHarga VIP - Jam: ',
-    ),
-    WarnetPlace(
-      name: 'Xgate Esport Arena',
-      location: 'Ruko Landmark Delta, Jl. Panjang Jiwo Permai Selatan, Panjang Jiwo \nKec. Tenggilis Mejoyo, Kota SBY, Jawa Timur 60299',
-      imageAsset: 'images/download(11).jpg',
-      tarif: 'Mulai dari Rp. 3.750',
-      hari: 'Senin Tutup',
-      waktu: 'PPKM: 7.00 - 21.00',
-      deskripsi: 'Warnet bergengsi khusus peminat perlombaan E-Sport sejati\nFasilitas: Full AC, Parkir, Toilet, Kantin Dalam (07.00 - 21.00)\nHarga Biasa - Jam: \nHarga VIP - Jam: ',
-    ),
-    WarnetPlace(
-      name: 'Gunzie E-Sport Arena',
-      location: 'Jl. Nginden Semolo No.42, Menur Pumpungan \nKec. Sukolilo, Kota SBY, Jawa Timur 60118',
-      imageAsset: 'images/download(12).jpg',
-      tarif: 'Mulai dari Rp. 2.750',
-      hari: 'Setiap Hari',
-      waktu: '24 Jam',
-      deskripsi: 'Warnet fasilitas terkini dan terjangkau di kantong\nFasilitas: Full AC, Parkir, Toilet, Kantin Dalam (24 Jam)\nHarga Biasa - Jam: \nHarga VIP - Jam: ',
-    ),
-  ];
+  late Future<WarnetResult> _warnet;
+  @override
+  void initState() {
+    super.initState();
+    _warnet = ApiService().topHeadlines();
+  }
 
+  Widget _buildList(BuildContext context) {
+    return FutureBuilder(
+      future: _warnet,
+      builder: (context, AsyncSnapshot<WarnetResult> snapshot) {
+        var state = snapshot.connectionState;
+        if (state != ConnectionState.done) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshot.data?.warnetPlaces.length,
+              itemBuilder: (context, index){
+                var place = snapshot.data?.warnetPlaces[index];
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return DetailScreen(place: place!);
+                    }));
+                  },
+                  child: Consumer<DoneWarnetProvider>(
+                    builder: (context, DoneWarnetProvider data,widget){
+                      return ListItem(
+                        place: place!,
+                        isDone: data.doneWarnetPlaceList.contains(place),
+                        onCheckboxClick: (bool? value){
+                          setState((){
+                            if(value!=null){
+                              value
+                                  ? data.doneWarnetPlaceList.add(place)
+                                  : data.doneWarnetPlaceList.remove(place);
+                            }
+                          });
+                        },
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          } else {
+            return Text('');
+          }
+        }
+      },
+    );
+  }
+
+  _WarnetListState(this.doneWarnetPlaceList);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-     return ListView.builder(
-        itemBuilder: (context, index){
-          final WarnetPlace place = warnetPlaceList[index];
-          return InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return DetailScreen(place: place);
-              }));
-            },
-            child: Consumer<DoneWarnetProvider>(
-              builder: (context, DoneWarnetProvider data,widget){
-                return ListItem(
-                    place: place,
-                    isDone: data.doneWarnetPlaceList.contains(place),
-                    onCheckboxClick: (bool? value){
-                    setState((){
-                      if(value!=null){
-                        value
-                            ? data.doneWarnetPlaceList.add(place)
-                            : data.doneWarnetPlaceList.remove(place);
-                      }
-                    });
-                },
-                );
-              },
-            ),
-          );
-        },
-        itemCount: warnetPlaceList.length,
-      );
+     return Scaffold(
+       body: _buildList(context),
+     );
   }
 }

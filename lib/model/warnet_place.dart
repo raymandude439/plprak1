@@ -1,3 +1,30 @@
+class WarnetResult {
+  WarnetResult({
+    required this.status,
+    required this.totalResults,
+    required this.warnetPlaces,
+  });
+
+  String status;
+  int totalResults;
+  List<WarnetPlace> warnetPlaces;
+
+  factory WarnetResult.fromJson(Map<String, dynamic> json) => WarnetResult(
+    status: json["status"],
+    totalResults: json["totalResults"],
+    warnetPlaces: List<WarnetPlace>.from((json["warnetPlaces"] as List)
+        .map((x) => WarnetPlace.fromJson(x))
+        .where((article) =>
+    article.name != null &&
+        article.location != null &&
+        article.imageAsset != null &&
+        article.waktu != null &&
+        article.hari != null &&
+        article.tarif != null &&
+        article.deskripsi != null)),
+  );
+}
+
 class WarnetPlace {
   String name;
   String location;
@@ -21,6 +48,15 @@ class WarnetPlace {
     required this.hari,
     required this.waktu,
   });
+  factory WarnetPlace.fromJson(Map<String, dynamic> json) => WarnetPlace(
+      name: json['name'],
+      location: json['location'],
+      imageAsset: json['imageAsset'],
+      deskripsi: json['deskripsi'],
+      tarif: json['tarif'],
+      hari: json['hari'],
+      waktu: json['waktu'],
+  );
 }
 
 // var warnetPlaceList = [

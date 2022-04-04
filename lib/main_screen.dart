@@ -124,7 +124,7 @@ class _MainScreenState extends State<MainScreen>{
   //     ),
   //   );
   // }
-
+  final List<WarnetPlace> doneWarnetPlaceList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,7 +144,7 @@ class _MainScreenState extends State<MainScreen>{
           )
         ],
       ),
-      body: WarnetList(),
+      body: WarnetList(doneWarnetPlaceList: doneWarnetPlaceList),
     );
   }
 }
