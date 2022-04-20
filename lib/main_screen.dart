@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plprak1/done_warnet_list.dart';
 import 'package:plprak1/model/warnet_place.dart';
 import 'package:plprak1/warnet_list.dart';
+import 'package:plprak1/Create.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -137,11 +138,24 @@ class _MainScreenState extends State<MainScreen>{
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context){
-                    return const DoneWarnetList();
+                    return const DoneWarnetList(
+                      // doneWarnetPlaceList: doneWarnetPlaceList,
+                    );
                   }),
                 );
               },
-          )
+          ),
+          IconButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return Create();
+                  }),
+                );
+              },
+              icon: const Icon(Icons.add),
+          ),
         ],
       ),
       body: WarnetList(doneWarnetPlaceList: doneWarnetPlaceList),

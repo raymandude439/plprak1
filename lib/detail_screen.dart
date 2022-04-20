@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plprak1/model/warnet_place.dart';
+import 'package:plprak1/edit_screen.dart';
 
 class DetailScreen extends StatelessWidget {
 
@@ -14,6 +15,21 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Warnet ' + place.name),
+        actions: <Widget>[
+          IconButton(
+              icon: const Icon(Icons.edit_outlined),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return EditScreen(
+                      place: place,
+                    );
+                  }),
+                );
+              }
+          ),
+        ],
       ),
       body: SafeArea(
         child: Column(

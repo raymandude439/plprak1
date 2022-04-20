@@ -26,6 +26,7 @@ class WarnetResult {
 }
 
 class WarnetPlace {
+  String id;
   String name;
   String location;
   String imageAsset;
@@ -40,6 +41,7 @@ class WarnetPlace {
 
 
   WarnetPlace({
+    required this.id,
     required this.name,
     required this.location,
     required this.imageAsset,
@@ -49,6 +51,7 @@ class WarnetPlace {
     required this.waktu,
   });
   factory WarnetPlace.fromJson(Map<String, dynamic> json) => WarnetPlace(
+      id: json['id'],
       name: json['name'],
       location: json['location'],
       imageAsset: json['imageAsset'],
